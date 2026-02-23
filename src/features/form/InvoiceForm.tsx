@@ -77,7 +77,41 @@ export default function InvoiceForm({ onSubmit, onBack}: Props) {
             <Field label="Address" error={errors.senderAddress?.message}>
                 <Input {...register("senderAddress")} placeholder="123 Main St, City, Country"></Input>
             </Field>
-          </div>   
+          </div>  
+
+           {/* Client */}
+        <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
+            <h3 className="font-semibold text-gray-700">Client Details</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Field label="Name" error={errors.clientName?.message}>
+                    <Input {...register("clientName")} placeholder="Acme Corp" />
+                </Field>
+                <Field label="Email" error={errors.clientEmail?.message}>
+                    <Input {...register("clientEmail")} placeholder="billing@acme.com" />
+                </Field>
+            </div>
+                <Field label="Address" error={errors.clientAddress?.message}>
+                    <Input {...register("clientAddress")} placeholder="456 Business Ave, Manchester" />
+                </Field>
+        </div>
+
+        {/* Invoice details */}
+      <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
+        <h3 className="font-semibold text-gray-700">Invoice Details</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Field label="Invoice Number" error={errors.invoiceNumber?.message}>
+            <Input {...register("invoiceNumber")} placeholder="INV-001" />
+          </Field>
+          <Field label="Issue Date" error={errors.issueDate?.message}>
+            <Input {...register("issueDate")} type="date" />
+          </Field>
+          <Field label="Due Date" error={errors.dueDate?.message}>
+            <Input {...register("dueDate")} type="date" />
+          </Field>
+        </div>
+      </div>
+
+      
         </form>
 
         
