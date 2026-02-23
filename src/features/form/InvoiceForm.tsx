@@ -47,3 +47,39 @@ function Input({ className, ...props}: React.InputHTMLAttributes<HTMLInputElemen
     )
 }
 
+export default function InvoiceForm({ onSubmit, onBack}: Props) {
+    const { register, handleSubmit, watch, formState: { errors} } = useForm<InvoiceFormData>({
+        resolver: zodResolver(schema),
+    })
+
+    const quantity = watch("itemQuantity") || 0
+    const price = watch("itemPrice") || 0
+    const total = (Number(quantity)* Number(price)).toFixed(2)
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          <div className="flex items-center gap-4">
+            <button type="button" onClick={onBack} className="text-sm text-gray-500 hover:text-gray-800">← Back</button> 
+            <h2 className="text-2xl font-bold text-gray-800">🧾 Invoice</h2> 
+          </div>
+
+            {/* Sender */}
+          <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
+            <h3 className="font-semibold text-gray-700">Your Details</h3>
+            <div>
+                <Field label="Name" error={errors.senderName?.message}>
+                    <Input {...register("senderName")} placeholder="Jane Doe"></Input>
+                </Field>
+                <Field label="Email" error={errors.senderEmail?.message}>
+                    <Input {...register("senderEmail")} placeholder="jane@example.com"></Input>
+                </Field>
+            </div>
+            <Field label="Address" error={errors.senderAddress?.message}>
+                <Input {...register("senderAddress")} placeholder="123 Main St, City, Country"></Input>
+            </Field>
+          </div>   
+        </form>
+
+        
+    )
+}
