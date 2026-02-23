@@ -14,7 +14,7 @@ function App() {
     setFormData(data)
   }
 
-  
+
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm border-b border-gray-200">
@@ -25,8 +25,13 @@ function App() {
       <main className="max-w-4xl mx-auto px-6 py-10">
         {!selectedTemplate ? (
           <TemplateSelector onSelect={setSelectedTemplate} />
-        ) : (
-          <p className="text-gray-500">Selected: {selectedTemplate.name}</p>
+        ) : !formData ? (
+          <InvoiceForm
+            onSubmit={handleFormSubmit}
+            onBack={() => setSelectedTemplate(null)}
+          />
+        ): (
+          <p className="text-gray-500">Ready to generate PDF for: {formData.senderName}</p>
         )
         }
       </main>
