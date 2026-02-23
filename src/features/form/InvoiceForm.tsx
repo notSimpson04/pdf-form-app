@@ -111,7 +111,32 @@ export default function InvoiceForm({ onSubmit, onBack}: Props) {
         </div>
       </div>
 
-      
+        {/* Line item */}
+        <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
+            <h3 className="font-semibold text-gray-700">Line Item</h3>
+            <Field label="Description" error={errors.itemDescription?.message}>
+                <Input {...register("itemDescription")} placeholder="Web development services" />
+            </Field>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <Field label="Quantity" error={errors.itemQuantity?.message}>
+                <Input {...register("itemQuantity")} type="number" placeholder="1" />
+            </Field> 
+            <Field label="Price ($" error={errors.itemPrice?.message}>
+                <Input {...register("itemPrice")} type="number" placeholder="0.00" />
+            </Field> 
+            <div className="flex flex-col gap-1 justify-end">
+                <span className="text-sm font-medium text-gray-700">Total</span>
+                <span className="text-lg font-bold text-blue-600">${total}</span>
+            </div>
+            </div>
+
+            <button
+                type="submit"
+                className="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors"
+            >
+                Generate PDF →
+            </button>
+        </div>
         </form>
 
         

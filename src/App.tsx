@@ -1,10 +1,20 @@
 import { useState } from  "react"
 import TemplateSelector from "./features/templates/TemplateSelector"
 import type { Template } from "./features/templates/TemplateSelector"
+import type { InvoiceFormData } from "./types/forms"
+import InvoiceForm from "./features/form/InvoiceForm"
 
 function App() {
   const [ selectedTemplate, setSelectedTemplate] = useState<Template | null>(null)
+  const [formData, setFormData] = useState<InvoiceFormData | null>(null)
 
+
+  const handleFormSubmit = (data: InvoiceFormData) => {
+    console.log("Form Data:", data)
+    setFormData(data)
+  }
+
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm border-b border-gray-200">
