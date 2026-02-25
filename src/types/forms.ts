@@ -15,3 +15,30 @@ export type InvoiceFormData = {
     itemQuantity: number
     itemRate: number
 }
+
+export type CVFormData = {
+    //Personal Info
+    fullName: string
+    jobTitle: string
+    email: string
+    phone: string
+    location: string
+    website: string
+
+    //Summary
+    summary: string
+
+    //Experience
+    expJobTitle: string
+    expCompany: string
+    expDates: string
+    expDescription: string
+
+    //Education
+    eduDegree: string
+    eduSchool: string
+    eduDates: string
+
+    //Skills
+    skills: string
+}
