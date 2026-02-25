@@ -13,5 +13,5 @@ export type InvoiceFormData = {
 
     itemDescription: string
     itemQuantity: number
-    itemPrice: number
+    itemRate: number
 }

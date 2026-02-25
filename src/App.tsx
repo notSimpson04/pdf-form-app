@@ -3,17 +3,27 @@ import TemplateSelector from "./features/templates/TemplateSelector"
 import type { Template } from "./features/templates/TemplateSelector"
 import type { InvoiceFormData } from "./types/forms"
 import InvoiceForm from "./features/form/InvoiceForm"
+import { generateInvoicePdf } from "./features/pdf/generateInvoicePdf"
 
 function App() {
-  const [ selectedTemplate, setSelectedTemplate] = useState<Template | null>(null)
-  const [formData, setFormData] = useState<InvoiceFormData | null>(null)
+  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null)
+  const [generating, setGenerating] = useState(false)
 
-
-  const handleFormSubmit = (data: InvoiceFormData) => {
-    console.log("Form Data:", data)
-    setFormData(data)
+  const handleFormSubmit = async (data: any) => {
+    setGenerating(true)
+    try {
+      const pdfBytes = await generateInvoicePdf(data)
+      const blob = new Blob([pdfBytes], { type: "application/pdf" })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = `invoice-${data.invoiceNumber}.pdf`
+      a.click()
+      URL.revokeObjectURL(url)
+    } finally {
+      setGenerating(false)
+    }
   }
-
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -25,15 +35,13 @@ function App() {
       <main className="max-w-4xl mx-auto px-6 py-10">
         {!selectedTemplate ? (
           <TemplateSelector onSelect={setSelectedTemplate} />
-        ) : !formData ? (
+        ) : (
           <InvoiceForm
             onSubmit={handleFormSubmit}
             onBack={() => setSelectedTemplate(null)}
+            generating={generating}
           />
-        ): (
-          <p className="text-gray-500">Ready to generate PDF for: {formData.senderName}</p>
-        )
-        }
+        )}
       </main>
     </div>
   )
