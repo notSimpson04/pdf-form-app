@@ -46,8 +46,8 @@ function App() {
     }
   }
 
-  const downloadPdf = (pdfBytes: Uint8Array<ArrayBuffer>, fileName: string) => {
-    const blob = new Blob([pdfBytes], { type: "application/pdf" })
+  const downloadPdf = (pdfBytes: Uint8Array, fileName: string) => {
+    const blob = new Blob([pdfBytes as unknown as Uint8Array<ArrayBuffer>], { type: "application/pdf" })
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
