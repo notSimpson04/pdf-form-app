@@ -61,7 +61,7 @@ function TextArea({ className, ...props }: React.TextareaHTMLAttributes<HTMLText
 
 export default function ContractForm({ onSubmit, onBack, generating}: Props) {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
-        resolver: zodResolver(schema),
+        resolver: zodResolver(schema) as any,
     })
 
     return (

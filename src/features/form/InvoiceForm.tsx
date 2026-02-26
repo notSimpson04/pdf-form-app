@@ -52,7 +52,7 @@ export default function InvoiceForm({ onSubmit, onBack, generating }: Props) {
     watch,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema) as any,
   })
 
   const quantity = watch("itemQuantity") || 0

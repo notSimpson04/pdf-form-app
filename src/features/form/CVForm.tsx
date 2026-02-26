@@ -64,7 +64,7 @@ export default function CVForm({ onSubmit, onBack, generating }: Props) {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema) as any,
   })
 
   return (
