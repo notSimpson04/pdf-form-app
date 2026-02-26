@@ -157,7 +157,7 @@ export default function CVForm({ onSubmit, onBack, generating }: Props) {
         disabled={generating}
         className="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {generating ? "Generating..." : "Generate PDF →"}
+        {generating ? "Generating..." : "Generate CV/Resume →"}
       </button>
     </form>
   )

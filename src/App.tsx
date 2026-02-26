@@ -3,8 +3,10 @@ import TemplateSelector from "./features/templates/TemplateSelector"
 import type { Template } from "./features/templates/TemplateSelector"
 import InvoiceForm from "./features/form/InvoiceForm"
 import CVForm from "./features/form/CVForm"
+import ContractForm from "./features/form/ContractForm"
 import { generateInvoicePdf } from "./features/pdf/generateInvoicePdf"
 import { generateCVPdf } from "./features/pdf/generateCVPdf"
+import { generateContractPdf } from "./features/pdf/generateContractPdf"
 
 type AppState = "select" | "form" | "success"
 
@@ -29,6 +31,16 @@ function App() {
     try {
       const pdfBytes = await generateCVPdf(data)
       downloadPdf(pdfBytes, `cv-${data.fullName.replace(/\s+/g, "-").toLowerCase()}.pdf`)
+    } finally {
+      setGenerating(false)
+    }
+  }
+
+  const handleContractSubmit = async (data: any) => {
+    setGenerating(true)
+    try {
+      const pdfBytes = await generateContractPdf(data)
+      downloadPdf(pdfBytes, `contract-${data.projectTitle.replace(/\s+/g, "-").toLowerCase()}.pdf`)
     } finally {
       setGenerating(false)
     }
@@ -77,6 +89,9 @@ function App() {
         )}
         {appState === "form" && selectedTemplate?.id === "cv" && (
           <CVForm onSubmit={handleCVSubmit} onBack={() => setAppState("select")} generating={generating} />
+        )}
+        {appState === "form" && selectedTemplate?.id === "contract" && (
+          <ContractForm onSubmit={handleContractSubmit} onBack={() => setAppState("select")} generating={generating} />
         )}
         {appState === "success" && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
